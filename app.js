@@ -19,7 +19,7 @@ addEventListener("mousemove", function(event) {
 
 
 var grav = 0.99;
-c.strokeWidth=5;
+// c.strokeWidth=5;
 function randomColor() {
   return (
     "rgba(" +
@@ -36,24 +36,26 @@ function randomColor() {
 
 function Ball() {
   this.color = randomColor();
-  this.radius = Math.random() * 10 + 20;
+  this.radius = Math.random() * 10 + 5 ;
   this.startradius = this.radius;
-  this.x = Math.random() * (tx - this.radius * 2) + this.radius;
+  this.x = Math.random() * (tx - this.radius);
   this.y = Math.random() * (ty - this.radius);
-  this.dy = Math.random() * 2;
-  this.dx = Math.round((Math.random() - 0.5) * 10);
-  this.vel = Math.random() /5;
+//   this.dy = Math.random() * 2;
+//   this.dx = Math.round((Math.random() - 0.5) * 10);
+  this.dy = Math.random() * 10;
+  this.dx = Math.random() * 10;
+  this.vel = Math.random() * 0.1;
   this.update = function() {
     c.beginPath();
-    c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    c.arc(this.x, this.y, this.radius, 0, 2* Math.PI);
     c.fillStyle = this.color;
     c.fill();
-    //c.stroke();
+    // c.stroke();
   };
 }
 
 var bal = [];
-for (var i=0; i<100; i++){
+for (var i=0; i<50; i++){
     bal.push(new Ball());
 }
 
@@ -65,6 +67,7 @@ function animate() {
     canvas.height = ty;
   }
   requestAnimationFrame(animate);
+  //https://mehmetseven.net/javascript-requestanimationframe-metodu/
   c.clearRect(0, 0, tx, ty);
   for (var i = 0; i < bal.length; i++) {
     bal[i].update();
@@ -84,7 +87,7 @@ function animate() {
       mousey < bal[i].y +50 &&
       bal[i].radius < 70){
         //bal[i].x += +1;
-        bal[i].radius +=5; 
+        bal[i].radius +=4; 
       } else {
         if(bal[i].radius > bal[i].startradius){
           bal[i].radius += -5;
@@ -101,4 +104,4 @@ animate();
 setInterval(function() {
   bal.push(new Ball());
   bal.splice(0, 1);
-}, 400);
+}, 500);
